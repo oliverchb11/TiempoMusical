@@ -1,0 +1,318 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="secondary">
+            <ion-button>
+                <ion-icon slot="icon-only" name="notifications"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Perfil del practicante</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content  *ngIf="!prueba" >
+    <div *ngIf="auth.userProfile$ | async as profile">
+        <form [formGroup]="formdatosper">
+            <ion-card>
+                <ion-card-header class="name"> {{profile.name}}</ion-card-header>
+                <img [src]="profile.picture" class="imagen">
+
+                <ion-card-content>
+                    <ion-item class="margen">
+                        <ion-icon name="mail" class=""></ion-icon>
+                        <p> Email: {{profile.email}}</p>
+                    </ion-item>
+                    <br>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="musical-notes"></ion-icon>
+                            <ion-label>
+                                <p>Tipo de instrumento favorito</p>
+                            </ion-label>
+                            <ion-select formControlName="tipo">
+                                <ion-select-option class="" *ngFor="let item of tipo | async">
+                                    <p> {{item.descripcion}} </p>
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="musical-notes"></ion-icon>
+                            <ion-label>
+                                <p> Instrumento favorito </p>
+                            </ion-label>
+                            <ion-select formControlName="instrumentos">
+                                <ion-select-option class="" *ngFor="let i of instrumentos | async">
+                                    <p>{{i.nombre}}</p>
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="calendar"></ion-icon>
+                            <ion-label stacked>
+                                <p> Fecha de nacimiento: </p>
+                            </ion-label>
+                            <ion-datetime formControlName="fechanac" displayFormat="MM-DD-YYYY" placeholder="MM-DD-YYY"></ion-datetime>
+                        </ion-item>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-radio-group formControlName="gender">
+                            <ion-row>
+                                <ion-col>
+                                    <ion-item class="margen">
+                                        <ion-icon name="woman"></ion-icon>
+                                        <ion-label>
+                                            <p>Mujer</p>
+                                        </ion-label>
+                                        <ion-radio value="2"></ion-radio>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col>
+                                    <ion-item class="margen">
+                                        <ion-icon name="man"></ion-icon>
+                                        <ion-label>
+                                            <p>Hombre</p>
+                                        </ion-label>
+                                        <ion-radio value="1"></ion-radio>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                        </ion-radio-group>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="earth"></ion-icon>
+                            <ion-label>
+                                <p>Pais</p>
+                            </ion-label>
+                            <ion-select formControlName="pais">
+                                <ion-select-option class="" *ngFor="let item of pais | async">
+                                    <p>{{item.NombrePais}}</p>
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="list"></ion-icon>
+                            <ion-label>
+                                <p>Departamento</p>
+                            </ion-label>
+                            <ion-select formControlName="depart">
+                                <ion-select-option class="" *ngFor="let item of departamento | async">
+                                    <p>{{item.NomDepart}}</p>
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+
+                    <div class="form-group">
+                        <ion-item class="margen">
+                            <ion-icon name="business"></ion-icon>
+                            <ion-label>
+                                <p>Ciudad</p>
+                            </ion-label>
+                            <ion-select formControlName="ciudad">
+                                <ion-select-option class="" *ngFor="let item of ciudad | async">
+                                    <p>{{item.NomCiudad}}</p>
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+                    <br>
+                    <div class="iconos">
+                        <ion-icon name="save" style="zoom:4.0;" (click)="showConfirm()"></ion-icon>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </form>
+
+    </div>
+</ion-content>
+    <ion-content *ngIf="prueba">
+        <h1>Nombre: {{username}}</h1>
+        <h1>Correo: {{usermail}}</h1>
+    </ion-content>
+    <!-- <ng-template #registrado>
+    <ion-content *ngIf="prueba">
+        <div *ngFor="let user of imprimirdata" >
+            <div *ngIf="!item.isEdit; else editar">
+
+                <ion-card >
+                    <ion-card-header class="name"> oliver</ion-card-header>
+                    <img [src]="profile.picture" class="imagen">
+
+                    <ion-card-content>
+                        <ion-item class="margen">
+                            <ion-icon name="mail" class=""></ion-icon>
+                            <p> Email: </p>
+                        </ion-item>
+                        <br>
+                        <div>
+                            <ion-item class="margen">
+                                <ion-icon name="musical-notes"></ion-icon>
+                                <ion-label>
+                                    <p>Tipo de instrumento favorito</p>
+                                </ion-label>
+                                dfdfd
+                            </ion-item>
+                        </div>
+                        <br>
+                        <div>
+                            <ion-item class="margen">
+                                <ion-icon name="musical-notes"></ion-icon>
+                                <ion-label>
+                                    <p> Instrumento favorito </p>
+                                </ion-label>
+                                fdfdf
+                            </ion-item>
+                        </div>
+                        <br>
+                        <div>
+                            <ion-item class="margen">
+                                <ion-icon name="earth"></ion-icon>
+                                <ion-label>
+                                    <p>Pais</p>
+                                </ion-label>
+                               dsdsd
+                            </ion-item>
+                        </div>
+                        <br>
+                        <div>
+                            <ion-item class="margen">
+                                <ion-icon name="list"></ion-icon>
+                                <ion-label>
+                                    <p>Departamento</p>
+                                </ion-label>
+                                sds
+                            </ion-item>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <ion-item class="margen">
+                                <ion-icon name="business"></ion-icon>
+                                <ion-label>
+                                    <p>Ciudad</p>
+                                </ion-label>
+                              sdsd
+                            </ion-item>
+                        </div>
+                        <br>
+                        <div class="iconos">
+                            <ion-icon name="save" *ngIf="item.isEdit" style="zoom:4.0;" (click)="showConfirm()"></ion-icon>
+                            <ion-icon name="create" style="zoom:4.0;" (click)="EditRecord()"></ion-icon>
+                            <ion-icon name="save" *ngIf="item.isEdit" style="zoom:4.0;" (click)="UpdateRecord()"></ion-icon>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </div>
+    </ion-content>
+    </ng-template> -->
+
+    <!-- <ng-template #editar>
+        <ion-card *ngFor=" let item of profileList">
+            <ion-card-header class="name"> {{profile.name}}</ion-card-header>
+            <img [src]="profile.picture" class="imagen">
+
+            <ion-card-content>
+                <ion-item class="margen">
+                    <ion-icon name="mail" class=""></ion-icon>
+                    <p> Email: {{profile.email}}</p>
+                </ion-item>
+                <br>
+
+                <div class="form-group">
+                    <ion-item class="margen">
+                        <ion-icon name="musical-notes"></ion-icon>
+                        <ion-label>
+                            <p>Tipo de instrumento favorito</p>
+                        </ion-label>
+                        <ion-select [(ngModel)]="item.Edittipo">
+                            <ion-select-option class="" *ngFor="let item of tipo | async">
+                                <p> {{item.descripcion}} </p>
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+
+                <div class="form-group">
+                    <ion-item class="margen">
+                        <ion-icon name="musical-notes"></ion-icon>
+                        <ion-label>
+                            <p> Instrumento favorito </p>
+                        </ion-label>
+                        <ion-select [(ngModel)]="item.Editinstrumento">
+                            <ion-select-option class="" *ngFor="let i of instrumentos | async">
+                                <p>{{i.nombre}}</p>
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+
+                <div class="form-group">
+                    <ion-item class="margen">
+                        <ion-icon name="earth"></ion-icon>
+                        <ion-label>
+                            <p>Pais</p>
+                        </ion-label>
+                        <ion-select [(ngModel)]="item.Editpais">
+                            <ion-select-option class="" *ngFor="let item of pais | async">
+                                <p>{{item.NombrePais}}</p>
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+
+                <div class="form-group">
+                    <ion-item class="margen">
+                        <ion-icon name="list"></ion-icon>
+                        <ion-label>
+                            <p>Departamento</p>
+                        </ion-label>
+                        <ion-select [(ngModel)]="item.Editdepart">
+                            <ion-select-option class="" *ngFor="let item of departamento | async">
+                                <p>{{item.NomDepart}}</p>
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+
+                <div class="form-group">
+                    <ion-item class="margen">
+                        <ion-icon name="business"></ion-icon>
+                        <ion-label>
+                            <p>Ciudad</p>
+                        </ion-label>
+                        <ion-select [(ngModel)]="item.Editciudad">
+                            <ion-select-option class="" *ngFor="let item of ciudad | async">
+                                <p>{{item.NomCiudad}}</p>
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+                <br>
+                <div class="iconos">
+                    <ion-icon name="save" *ngIf="item.isEdit" style="zoom:4.0;" (click)="UpdateRecord()"></ion-icon>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
+    <hr>  -->
+
+    <button (click)="auth.logout()" *ngIf="auth.loggedIn" class="btn btn-outline-primary">
+      Salir
+    </button>

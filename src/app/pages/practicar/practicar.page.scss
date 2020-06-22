@@ -1,0 +1,126 @@
+.selectcionar {
+    border-radius: 50px;
+    color: black;
+    border-style: ridge;
+    border-color: red;
+    background-color: red;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-shadow: inset 0 -1px 0 0 #DFF7F9;
+    top: 15px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.titulo {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+
+.iconoletf {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.descrp {
+    border-style: ridge;
+    border-color: red;
+    top: 15px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    size: 45px;
+}
+
+.displ {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #3478b8;
+}
+
+.iconos {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.borderboton {
+    outline: none;
+    color: #33d3ff;
+    background-color: transparent;
+}
+
+.loader {
+    top: 485px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    border: transparent;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 150px;
+    font-size: 28px;
+    color: #6ba9b4fd;
+    letter-spacing: 2px;
+}
+
+.loader::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 100%;
+    height: 100%;
+    border: 5px solid transparent;
+    border-top: 5px solid #d8d511d2;
+    border-right: 5px solid #281be2ec;
+    border-radius: 100%;
+    animation: animateCircle 2s linear infinite;
+}
+
+.loader span {
+    display: block;
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 50%;
+    width: 50%;
+    height: 4px;
+    background: transparent;
+    transform-origin: left;
+    animation: animate 2s linear infinite;
+}
+
+.loader span::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background: #df0a0a;
+    box-shadow: 0 0 10px #3478b8;
+}
+
+@keyframes animateCircle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(405deg);
+    }
+}

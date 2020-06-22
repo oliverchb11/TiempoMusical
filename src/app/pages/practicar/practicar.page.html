@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="secondary">
+            <ion-button>
+                <ion-icon slot="icon-only" name="notifications"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="titulo">Practicar</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <form [formGroup]="practicar">
+        <div class="form-group">
+            <ion-item class="selectcionar">
+                <ion-icon name="musical-notes"></ion-icon>
+                <ion-label required> Tipo Instrumento </ion-label>
+                <ion-select formControlName="tipo">
+                    <ion-select-option *ngFor="let item of tipo | async">
+                        {{item.descripcion}}
+                    </ion-select-option>
+                </ion-select>
+
+            </ion-item>
+        </div>
+
+        <div class="form-group">
+            <ion-item class="selectcionar">
+                <ion-icon name="musical-note"></ion-icon>
+                <ion-label>Instrumento</ion-label>
+                <ion-select formControlName="instrumentos">
+                    <ion-select-option class="text" *ngFor="let i of instrumentos | async">
+                        {{i.nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+
+        <div class="form-group">
+            <ion-item class="selectcionar">
+                <ion-icon name="layers"></ion-icon>
+                <ion-label>Estudiar hoy</ion-label>
+                <ion-select formControlName="estudiar">
+                    <ion-select-option class="text" *ngFor="let j of estudiarhoy | async">
+                        {{j.nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+
+        <div class="form-group">
+            <ion-item id="rounded" class="descrp">
+                <ion-icon name="barcode"></ion-icon>
+                <ion-input type="text" placeholder="Descripción" formControlName="descripcion" required></ion-input>
+            </ion-item>
+        </div>
+
+
+        <ion-item>
+            <h1 class="displ">{{displayTime}}</h1>
+        </ion-item>
+
+        <div class="iconos">
+            <button ion-button class="borderboton">
+                <div class="row">
+                    <div class="col">
+                        <ion-icon *ngIf="!runTimer" name="play" item-right round (click)="startTimer()" style="zoom:3.0;" ></ion-icon>
+                        <ion-icon *ngIf="runTimer"  name="pause-outline" item-right (click)="pauseTimer()" style="zoom:3.0;" ></ion-icon>
+                        <ion-icon *ngIf="!runTimer" name="refresh-outline" item-right (click)="initTimer()" style="zoom:3.0;" ></ion-icon>
+                    </div>
+                </div>
+            </button>
+
+            <button ion-button class="borderboton" roundoutline clear *ngIf="runTimer">
+                <div class="row">
+                    <div class="col">
+                        <ion-icon name="stop-circle" item-right (click)="finishedTimer()" style="zoom:3.0;" ></ion-icon>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="loader" *ngIf="runTimer">
+            {{displayTime}}
+            <span></span>
+        </div>
+    </form>
+</ion-content>

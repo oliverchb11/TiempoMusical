@@ -1,5 +1,7 @@
 {
   "name": "TiempoMusicApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

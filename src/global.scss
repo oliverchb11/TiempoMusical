@@ -9,18 +9,156 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.spinner,
+.spinner:after {
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+    border-radius: 50%;
+    z-index: 2
+}
+
+.spinner {
+    background-color: transparent;
+    border-top: 10px solid rgb(6, 12, 17);
+    border-right: 10px solid rgb(6, 12, 17);
+    border-bottom: 10px solid rgb(6, 12, 17);
+    border-left: 10px solid rgba(66, 139, 202, .2);
+    transform: translateZ(3);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: .7s;
+    animation-name: spinner-loading
+}
+
+@keyframes spinner-loading {
+    0% {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(20turn)
+    }
+}
+
+// body {
+//     margin: 15px;
+//     padding: 15px;
+//     background: transparent;
+// }
+.loader {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    //border: 10px solid #3c3c3c;
+    border: transparent;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 150px;
+    //font-family: sans-serif;
+    //cambiar el texto color y  tamaño
+    font-size: 28px;
+    color: #0a0a0a;
+    letter-spacing: 2px;
+    // text-shadow: 0 0 5px #3bc54698;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.loader::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 100%;
+    height: 100%;
+    border: 5px solid transparent;
+    border-top: 5px solid #0a0a0a;
+    border-right: 5px solid #0a0a0a;
+    border-radius: 100%;
+    animation: animateCircle 2s linear infinite;
+}
+
+.loader span {
+    display: block;
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 50%;
+    width: 50%;
+    height: 4px;
+    background: transparent;
+    transform-origin: left;
+    animation: animate 2s linear infinite;
+}
+
+.loader span::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background: #0a0a0a;
+    box-shadow: 0 0 10px #0a0a0a;
+}
+
+@keyframes animateCircle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(405deg);
+    }
+}
+
+.letras {
+    text-transform: initial;
+    font-size: 20px;
+}
+
+.cuadro {
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 1px;
+    margin-bottom: 10px;
+    background: #DFF7F9;
+    border-width: none;
+    border-bottom-color: #DFF7F9;
+    -webkit-box-shadow: inset 0 -1px 0 0 #DFF7F9;
+    box-shadow: inset 0 -1px 0 0 #DFF7F9;
+}
