@@ -18,14 +18,14 @@ export class FirebaseService {
     private firestore: AngularFirestore
   ) { }
 
-  create_datePract(record: any, duracion: string, fecha: Date) {
-    return this.firestore.collection(this.collectionName).add({record, duracion, fecha});
+  create_datePract(record: any, duracion: string, fecha: Date ,iduser:string) {
+    return this.firestore.collection(this.collectionName).add({record, duracion, fecha,iduser});
   }
   read_datePract() {
     return this.firestore.collection(this.collectionName).snapshotChanges();
   }
-  create_datePerso(record: any, name: String, email: string, fecha: Date) {
-    return this.firestore.collection(this.collectionNameP).add({record, name, email, fecha});
+  create_datePerso(record: any, name: String, email: string, fecha: Date ,iduser :string) {
+    return this.firestore.collection(this.collectionNameP).add({record, name, email, fecha, iduser});
   }
   read_datePersona() {
     return this.firestore.collection(this.collectionNameP).snapshotChanges();

@@ -14,4 +14,5 @@ descripcion: string;
 fecha: Date;
 estudiar: string;
 record: Record;
+iduser:string;
 }

@@ -21,6 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/estadisticas/estadisticas.module').then( m => m.EstadisticasPageModule),
     canActivate: [ AuthGuard]
   },
+  { path: 'cerrar', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
 ];
 
 @NgModule({

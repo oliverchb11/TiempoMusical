@@ -10,6 +10,7 @@ import { Ciudad } from '../../model/Ciudad.model';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { DatosPer } from '../../model/DatosPer.model';
 
 @Component({
   selector: 'app-perfil',
@@ -17,6 +18,15 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
+  ciudad1:string
+  deprtamento1:string;
+  genero1:string;
+  instrumentos1:string;
+  pais1:string;
+  tipo1:string;
+  //
+  iduser:string;
+  preguntaId:string;
 emails:string
   profileList = [];
   vector: string [] = [];
@@ -24,10 +34,11 @@ emails:string
   prueba:boolean;
   username: string;
   usermail: string;
+  foto:string;
   registrado:boolean;
   imprimirdata:any[]=[];
   objecto={};
-
+completado:boolean;
   exite = false;
   public tipo: Observable<any[]>;
   public instrumentos: Observable<any[]>;
@@ -66,9 +77,8 @@ emails:string
 
     //prueba
     this.firebaseService.dataPersona$().subscribe((data)=>{
-
-          this.imprimirdata = data;
-          console.log(  this.imprimirdata)
+        console.log('data collection dataper',data)
+      
 
           // tslint:disable-next-line: prefer-for-of
           for(let i = 0; i < data.length; i++){
@@ -77,10 +87,13 @@ emails:string
         }
           this.vector = [... new Set(this.vector)];
           this.auth.getUser$().subscribe(
-          (data) => {
+          (datas) => {
             if (data !== null) {
-            this.username = data.name;
-            this.usermail = data.email;
+            this.username = datas.name;
+            this.usermail = datas.email;
+            this.foto = datas.picture;
+            this.iduser = datas.sub;
+         
               // tslint:disable-next-line: prefer-for-of
             for(let x = 0; x < this.vector.length;x++){
               if(this.vector[x]===this.usermail){
@@ -97,11 +110,31 @@ emails:string
                 }
               }
             }
+         
+            const auth = datas.sub
+            for (let y =0; y <data.length;y++){
+             this.preguntaId = data[y].iduser;
+             console.log(this.preguntaId)
+             if(this.preguntaId === auth){
+               console.log('verdadero',y);  
+               this.pais1 = data[y].record.pais;
+               this.ciudad1 = data[y].record.ciudad;
+               this.deprtamento1 = data[y].record.depart;
+               this.instrumentos1 = data[y].record.instrumentos;
+               this.tipo1 = data[y].record.tipo
+               this.genero1 = data[y].record.gender;
+             }else{
+              console.log('falso');
+             }
+            }
         });
+
+        
+
   })
     this.firebaseService.read_datePersona().subscribe(data => {
      data.map(e => {
-      console.log(e)
+   
    
       this.objecto = {
         id:            e.payload.doc.id,
@@ -117,7 +150,7 @@ emails:string
         ciudad:        e.payload.doc.data()['ciudad'],
       };
 
-      console.log();
+     
     })
    
   });
@@ -129,7 +162,7 @@ emails:string
   async CreateRecord() {
     if(this.formdatosper.valid){
       console.log(this.formdatosper.value);
-      this.firebaseService.create_datePerso(this.formdatosper.value, this.username, this.usermail, new Date()).then(resp => {
+      this.firebaseService.create_datePerso(this.formdatosper.value, this.username, this.usermail, new Date(),this.iduser).then(resp => {
       this.formdatosper.reset();
     }).catch(error => {
         console.log(error);
@@ -195,10 +228,6 @@ emails:string
     });
     await confirm.present();
   }
-
-
-
-
 }
 
 

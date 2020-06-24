@@ -142,9 +142,20 @@
 
     </div>
 </ion-content>
-    <ion-content *ngIf="prueba">
+<br>
+<br>
+    <ion-content *ngIf="prueba" class="text-center mt-5">
+        <img [src]="foto" id="fotoI" height="90" width="90" alt="">
         <h1>Nombre: {{username}}</h1>
         <h1>Correo: {{usermail}}</h1>
+        <h1>Pais: {{pais1}}</h1>
+        <h1>Departamento: {{deprtamento1}}</h1>
+        <h1>Ciudad: {{ciudad1}}</h1>
+        <h1>Instrumento: {{instrumentos1}}</h1>
+        <h1>Tipo: {{tipo1}}</h1>
+        <h1 *ngIf="genero1==='1'">Genero: Hombre</h1>
+        <h1 *ngIf="genero1==='2'">Genero: Mujer</h1>
+   
     </ion-content>
     <!-- <ng-template #registrado>
     <ion-content *ngIf="prueba">

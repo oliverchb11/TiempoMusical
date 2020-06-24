@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { NavController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
+import { AuthService } from '../../services/auth.service';
 
 
 interface DataP {
@@ -28,7 +29,7 @@ export class PracticarPage implements OnInit {
   datosPList = [];
   DataP: DataP;
   practicar: FormGroup;
-  
+  iduser
   timeInSeconds: any;
   time: any;
   runTimer: boolean;
@@ -45,7 +46,9 @@ export class PracticarPage implements OnInit {
               public fb: FormBuilder,
               private firebaseService: FirebaseService,
               public alertController: AlertController,
-              public navCtrl: NavController) 
+              public navCtrl: NavController,
+              public auth0:AuthService
+              ) 
   {
 
     this.tipo = db.collection('tipo', ref => ref.orderBy('descripcion')).valueChanges();    
@@ -72,6 +75,12 @@ export class PracticarPage implements OnInit {
   // }
 
   ngOnInit(){   
+
+
+    this.auth0.getUser$().subscribe((data)=>{
+      this.iduser = data.sub;
+    })
+
     this. startTimer(); 
     this.initTimer();
 
@@ -83,6 +92,8 @@ export class PracticarPage implements OnInit {
     })
 
     this.firebaseService.read_datePract().subscribe(data => {
+   
+    
         this.datosPList = data.map(e => {
           return {
             id: e.payload.doc.id,
@@ -96,11 +107,14 @@ export class PracticarPage implements OnInit {
     });
   }
   
+
+ 
+
   async CreateRecord() {
     if(this.practicar.valid){
       console.log(this.practicar.value);
       const duracion = this.displayTime;
-      this.firebaseService.create_datePract(this.practicar.value, duracion, new Date()).then(resp => {
+      this.firebaseService.create_datePract(this.practicar.value, duracion, new Date(),this.iduser).then(resp => {
       this.practicar.reset();
     }).catch(error => {
         console.log(error);

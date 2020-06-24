@@ -10,6 +10,7 @@ import * as pluginDataLabels from 'ng2-charts';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { DatosClases } from '../../model/DatosClase.model';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -19,13 +20,17 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./estadisticas.page.scss'],
 })
 export class EstadisticasPage  implements OnInit    {
-  chart : Chart[] = [] ;
+
+  objetoData={};
+  auth:any;
+  chart : Chart  ;
   prueba:number[];
   prueba2:string;
   prueba3:string[];
   instrumentos:string;
   results: any[] = [];
   dato = {};
+  dato1 = {};
   botones:any[]=[];
   fechaJ = 'junio';
  estEscalas:boolean;
@@ -34,7 +39,16 @@ export class EstadisticasPage  implements OnInit    {
  estImprovisacion:boolean;
  estEstudios:boolean;
  fechaT:any;
-constructor(private firebaseService: FirebaseService) {}
+ regla:boolean;
+ instrumentoOE:string;
+ instrumentoI:string;
+ instrumentoEst:string;
+ instrumentoEsc:string;
+ duracionOE:string;
+ duracionI:string;
+ duracionEst:string;
+ duracionEsc:string;
+constructor(private firebaseService: FirebaseService, public auths :AuthService) {}
 ngOnInit(){
 
   this.firebaseService.estudiarHoy().subscribe(data=>{
@@ -42,95 +56,229 @@ ngOnInit(){
     console.log(data);
   })
 
+
 }
 
+////////////////////grafico
 
+public barChartOptions: ChartOptions = {
+  responsive: true,
+};
+public barChartLabels: Label[] = ['junio'];
+public barChartType: ChartType = 'bar';
+public barChartLegend = true;
+public barChartPlugins = [];
 
+public barChartData: ChartDataSets[] = [
+  { data: [], label: '' }
+];
 
+////////////////////fin grafico
 obras() {
-this.chart[''] = new Chart('canvas',{
-    type: 'bar',
-    data:{
-      labels: [0],
-      datasets: [
-        {
-          label: 'Obras',
-          data: [0]
-        }
-      ]
-    }
+  this.estObras = true;
+  this.auths.getUser$().subscribe(data=>{
+    this.auth = data.sub;
+  
+  })
+  this.firebaseService.dataFirebase$().subscribe((data)=>{
+        for(let x=0; x<data.length;x++){
+            const idUser = data[x].iduser
+            if(idUser === this.auth){
+             const dur = data[x].duracion.replace(':','');
+             const duracion = dur.replace(':','')
+             const estudiar = data[x].record.estudiar;
+ 
+              if(estudiar === " Obras o estándar "){
+         
+               this.instrumentoOE =  data[x].record.instrumentos;
+               this.duracionOE = duracion;
+              }else{
+            
+              }
+              //objeto
+              this.dato = {
+                data: [this.duracionOE],
+                label: [this.instrumentoOE],
+                backgroundColor:' #ffc578',
+                
+                };
+                // grafico
+                this.barChartData = [
+                  this.dato
+                ]
+                }else{}
+  
+          }
   });
 
+
+  
+
 }
 
+
+
+
+
+
 improvisacion() {
-this.chart[''] = new Chart('canvas', {
-    type: 'bar',
-    data: {
-      labels: [0],
-      datasets: [
-        {
-          label: 'Improvisacion',
-          data: [0]
-        }
-      ]
-    }
+  this.estImprovisacion = true;
+  this.auths.getUser$().subscribe(data=>{
+    this.auth = data.sub;
+
+  })
+
+  
+  this.firebaseService.dataFirebase$().subscribe((data)=>{
+  
+          
+          for(let x=0; x<data.length;x++){
+            const idUser = data[x].iduser
+            if(idUser === this.auth){
+              const dur = data[x].duracion.replace(':','');
+              const duracion = dur.replace(':','')
+              const estudiar = data[x].record.estudiar;
+        
+               if(estudiar === " Improvisación "){
+           
+                this.instrumentoI =  data[x].record.instrumentos;
+                this.duracionI = duracion;
+               }else{
+            
+               }
+               //objeto
+              this.dato = {
+                data: [this.duracionI],
+                label: [ this.instrumentoI],
+                backgroundColor:'#b4ddb4',
+              };
+                // grafico
+                this.barChartData = [
+                  this.dato
+                ]
+
+            }else{
+            
+              
+             
+              
+            }
+
+          }
+    
+ 
+      
+    
+ 
+
   });
 
 }
 
 
 estudios() {
-  this.chart[''] = new Chart('canvas',{
-    type: 'bar',
-    data:{
-      labels: [0],
-      datasets: [
-        {
-          label: 'Estudios',
-          data: [0]
-        }
-      ]
-    }
+  this.estEstudios = true;
+  this.auths.getUser$().subscribe(data=>{
+    this.auth = data.sub;
+
+  })
+
+  
+  this.firebaseService.dataFirebase$().subscribe((data)=>{
+  
+          
+          for(let x=0; x<data.length;x++){
+            const idUser = data[x].iduser
+            if(idUser === this.auth){
+              const dur = data[x].duracion.replace(':','');
+              const duracion = dur.replace(':','')
+              const estudiar = data[x].record.estudiar;
+    
+               if(estudiar === " Estudios "){
+                
+                this.instrumentoEst =  data[x].record.instrumentos;
+                this.duracionEst = duracion;
+               }else{
+           
+               }
+              this.dato = {
+                data: [this.duracionEst],
+                label: [this.instrumentoEst],
+                backgroundColor:'#4096ee',
+              };
+                // grafico
+                this.barChartData = [
+                  this.dato
+                ]
+
+            }else{
+           
+           
+           
+           
+            }
+
+          }
+    
+ 
+      
+    
+ 
+
   });
 }
 
 
 escalas() {
   this.estEscalas = true;
+  this.auths.getUser$().subscribe(data=>{
+    this.auth = data.sub;
+
+  })
+
+
   this.firebaseService.dataFirebase$().subscribe((data)=>{
-      this.validadorEscalas = data[0].record.estudiar;
-    // tslint:disable-next-line: align
-    //   const fecha = data[0].fecha;
-    //   this.fechaT = fecha;
-    //   console.log(this.fechaT);
-    //   // tslint:disable-next-line: radix
-    //   const dateF = parseInt(this.fechaT);
-    //   console.log(dateF);
-    //   const fechaTotal = new Date(dateF * 1000).toISOString();
-    //   // tslint:disable-next-line: radix
-    //   const fechaNumero = fechaTotal.substr(5, 2);
-    // // tslint:disable-next-line: align
-    // if(fechaNumero === '06'){
-    //  // tslint:disable-next-line: no-unused-expression
-    //  this.fechaJ;
-    // }
-        // objeto
-      this.dato = {
-        label: data[0].record.instrumentos,
-        data: [data[0].duracion],
-        backgroundColor: 'red',
-        borderColor: 'red',
-        fill: false,
-        };
-        // grafico
-      this.chart[''] = new Chart('canvas', {
-        type: 'bar',
-        data: {
-        labels: ['junio'],
-        datasets: [this.dato]
-      }
-    });
+  
+          
+          for(let x=0; x<data.length;x++){
+            const idUser = data[x].iduser
+            if(idUser === this.auth){
+              const dur = data[x].duracion.replace(':','');
+              const duracion = dur.replace(':','')
+              const estudiar = data[x].record.estudiar;
+       
+               if(estudiar === " Escalas "){
+                
+              this.instrumentoEsc =  data[x].record.instrumentos
+              this.duracionEsc = duracion;
+               }else{
+               
+               }
+              //objeto
+              this.dato = {
+                data: [ this.duracionEsc],
+                label: [this.instrumentoEsc],
+                backgroundColor:'#a90329',
+              };
+    
+                // grafico
+                this.barChartData = [
+                  this.dato
+                ]
+
+            }else{
+           
+      
+              
+            
+            }
+
+          }
+    
+ 
+      
+    
+ 
 
   });
 

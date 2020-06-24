@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Cerrar sesión',
-      url: '/',
+      url: '/cerrar',
       icon: 'exit-outline'
     }
   ];
