@@ -27,19 +27,21 @@
   </canvas>
             </div>
         </div>
-        <div class="container text-center" *ngFor="let boton of botones" >
-        <div *ngIf="boton.nombre === 'Estudios'">
+    <div id="div-btn" class="container text-center" *ngFor="let boton of botones" >
+<ul id="button">
+    <li *ngIf="boton.nombre === 'Estudios'">
             <ion-button  color="primary"  (click)="estudios()">{{boton.nombre}}</ion-button>
-        </div>
-        <div *ngIf="boton.nombre === 'Obras o estándar'">
-            <ion-button  color="primary" (click)="obras()">{{boton.nombre}}</ion-button>
-        </div>
-        <div *ngIf="boton.nombre === 'Improvisación'">
-            <ion-button  color="primary" (click)="improvisacion()">{{boton.nombre}}</ion-button>
-        </div>
-        <div *ngIf="boton.nombre === 'Escalas'">
-            <ion-button  color="primary" (click)="escalas()">{{boton.nombre}}</ion-button>
-        </div>
-        </div>
+    </li>
+    <li  *ngIf="boton.nombre === 'Obras o estándar'">
+            <ion-button  color="warning" (click)="obras()">{{boton.nombre}}</ion-button>
+     </li>
+    <li *ngIf="boton.nombre === 'Improvisación'">
+            <ion-button  color="success" (click)="improvisacion()">{{boton.nombre}}</ion-button>
+    </li>
+    <li *ngIf="boton.nombre === 'Escalas'">    
+            <ion-button  color="danger" (click)="escalas()">{{boton.nombre}}</ion-button>
+    </li>
+</ul>
+       </div>
     </div>
 </ion-content>
